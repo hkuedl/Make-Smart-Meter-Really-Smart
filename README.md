@@ -16,6 +16,7 @@ The current version supports the following datasets and tasks are saved in `data
 
 You can build the **experimental platform** with three components: microcontrollers, personal computers and tower server. `experimental_platform` is loaded with the code deployed on them.
 > **Note:** The microcontrollers are coded in  **C language** and the computers and tower server are coded in **Python**.
+> 
 ![teaser](experimental_platform/hardware_platform.png)
 
 To use the provided code, you are supposed to:
