@@ -1,3 +1,4 @@
+
 # Introducing Edge Intelligence to Smart Meters via Federated Split Learning
 
 This is the codebase for our paper "Introducing Edge Intelligence to Smart Meters via Federated Split Learning".
@@ -28,7 +29,7 @@ To use the provided code, you are supposed to:
  
 ## Simulation platform
 
-You can also build the **simulation platform** with the tower server. `simulation_platform` is loaded with the code deployed.
+You also can build the **simulation platform** with the tower server. `simulation_platform` is loaded with the code deployed on it.
 
 To use the provided code, please run `simulation_platform/Test.py` to obtain results.
 
@@ -41,3 +42,16 @@ Experimental platform:
 Simulation platform:
 - Python 3.6+
 - PyTorch 1.4.0+
+
+## Experimental results
+
+Enable resource-constrained smart meters to execute resource-intensive intelligent algorithms!
+
+ - Performance comparison with benchmarks
+![teaser](figures/performance_evaluation.png)
+![teaser](figures/accuracy_versus_memory.png)
+
+## Video
+Smart meters are performing 4-hour-ahead load forecasting. The red line is the truth and the blue line is the prediction.
+![teaser](figures/testing_video.png)
+ 
