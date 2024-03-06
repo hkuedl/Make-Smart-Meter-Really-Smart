@@ -29,7 +29,7 @@ To use the provided code, you are supposed to:
  
 ## Simulation platform
 
-You also can build the **simulation platform** with the tower server. `simulation_platform` is loaded with the code deployed on it.
+You can also build the **simulation platform** with the tower server. `simulation_platform` is loaded with the code deployed on it.
 
 To use the provided code, please run `simulation_platform/Test.py` to obtain results.
 
@@ -47,11 +47,16 @@ Simulation platform:
 
 Enable resource-constrained smart meters to execute resource-intensive intelligent algorithms!
 
- - Performance comparison with benchmarks
+ - Performance comparison
+
 ![teaser](figures/performance_evaluation.png)
+
+ - Accuracy versus memory footprint
+
 ![teaser](figures/accuracy_versus_memory.png)
 
 ## Video
-Smart meters are performing 4-hour-ahead load forecasting. The red line is the truth and the blue line is the prediction.
-![teaser](figures/testing_video.png)
+ - Smart meters are performing 4-hour-ahead load forecasting. The red line is the truth value and the blue line is the prediction value.
+
+![teaser](figures/testing_video.gif)
  
