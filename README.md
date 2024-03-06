@@ -4,7 +4,7 @@ This is the codebase for our paper "Introducing Edge Intelligence to Smart Meter
 
 ## Overview
 
-Low-cost smart meters are ubiquitous in smart grids. Enabling resource-constraint smart meters to perform deep learning is quite challenging. Our end-edge-cloud framework reveals a new path for edge intelligence on smart meters. It improves 95.6% memory footprint, 94.8% training time, and 50% communication overhead and achieves comparable or even superior forecasting accuracy to the
+Low-cost smart meters are ubiquitous in smart grids. Enabling resource-constraint smart meters to perform deep learning is quite challenging. Our end-edge-cloud framework reveals a new path for edge intelligence on smart meters. It improves 95.6% memory footprint, 94.8% training time, and 50% communication overhead, achieving comparable or even superior forecasting accuracy to the
 resource-unlimited methods. We provide code for established experimental and simulation platforms.
 
 ## Dataset
@@ -21,14 +21,14 @@ You can build the **experimental platform** with three components: microcontroll
 ![teaser](experimental_platform/hardware_platform.png)
 
 To use the provided code, you are supposed to:
-- Compile `experimental_platform/smart_meter/USER/.uvprojx` and download the code to flash memory of microcontrollers.
+- Compile `experimental_platform/smart_meter/USER/.uvprojx` and download the code to the flash memory of microcontrollers.
 - Run `experimental_platform/edge_server/Edge_server` on computers.
 - Run `experimental_platform/cloud_server/Cloud_server` on server.
 > **Note:** Please ensure the communication network is connected and stable before use.
  
 ## Simulation platform
 
-You also can build the **simulation platform** with tower server. `simulation_platform` is loaded with the code deployed on it.
+You can also build the **simulation platform** with the tower server. `simulation_platform` is loaded with the code deployed.
 
 To use the provided code, please run `simulation_platform/Test.py` to obtain results.
 
