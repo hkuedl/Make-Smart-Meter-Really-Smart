@@ -36,12 +36,13 @@ To use the provided code, please run `simulation_platform/Test.py` to obtain res
 ## Requirement
 
 Experimental platform:
-- Python 3.6+
 - μVision 5.3+
+- STM32F405 MCU
 
 Simulation platform:
 - Python 3.6+
 - PyTorch 1.4.0+
+- Inter-i7-12700-4.9GHz CPU
 
 ## Experimental results
 
