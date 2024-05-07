@@ -86,7 +86,6 @@ class full_model(nn.Module):
         x = self.fc_relu2(x)
         x = self.fc_relu3(x)
         x = self.fc_relu4(x)
-        x = self.fc_relu1(x)
         output = self.linear(x)
         
         return output
