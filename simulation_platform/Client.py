@@ -34,6 +34,11 @@ class Client():
         self.fed_optimizer = torch.optim.Adam(self.fed_model.parameters(), lr=lr)
         self.fed_trainer = full_Trainer(model=self.fed_model, optimizer=self.fed_optimizer, train_loss_fn=self.train_loss_fn)
         
+        # FedProx
+        self.fed_prox_model = full_model(input_size=self.input_dim).to(device)
+        self.fed_prox_optimizer = torch.optim.Adam(self.fed_prox_model.parameters(), lr=lr)
+        self.fed_prox_trainer = full_Trainer(model=self.fed_prox_model, optimizer=self.fed_prox_optimizer, train_loss_fn=self.train_loss_fn)
+        
         # Split
         self.split_feature_extractor = feature_extractor(input_size=self.input_dim).to(device)
         self.split_feature_processor = feature_processor().to(device)
@@ -102,6 +107,19 @@ class Client():
     def set_fed_model(self, model_params):
         self.fed_model.load_state_dict(model_params)
 
+    # FedProx
+    def fed_prox_train(self, global_parameter):
+        self.fed_prox_trainer.prox_trainer(self.train_dataloader, global_parameter)
+    
+    def fed_prox_finetune(self):
+        self.fed_prox_trainer.fine_tune(self.train_dataloader)
+    
+    def get_fed_prox_model(self):
+        return self.fed_prox_model
+    
+    def set_fed_prox_model(self, model_params):
+        self.fed_prox_model.load_state_dict(model_params)
+        
     # Split
     def split_train(self):
         self.split_trainer.split_trainer(self.train_dataloader)
