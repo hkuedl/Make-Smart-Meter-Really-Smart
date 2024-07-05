@@ -2,7 +2,7 @@ import torch
 from torch import nn
 import numpy as np
 from Data import construct_dataset
-from Model import feature_processor, feature_extractor, regressor, full_model, full_model_cen, full_Trainer
+from Model import feature_processor, feature_extractor, regressor, full_model, full_Trainer
 from sklearn.metrics import mean_squared_error
 from sklearn.metrics import mean_absolute_percentage_error
 from sklearn.metrics import mean_absolute_error
@@ -28,6 +28,7 @@ class Server():
                  clients,
                  lr,
                  rounds,
+                 finetuning_rounds,
                  mu,
                  gamma) -> None:
         
@@ -37,6 +38,7 @@ class Server():
         self.clients = clients
         _, __, ___, self.scaler, self.input_dim, self.global_train_dataloader, self.global_val_dataloader, self.global_test_dataloader = construct_dataset(self.data, self.datas)
         self.rounds = rounds
+        self.finetuning_rounds = finetuning_rounds
         self.mu = mu
         self.gamma = gamma
         self.train_loss_fn = torch.nn.MSELoss(reduction="mean")
@@ -63,6 +65,7 @@ class Server():
             scalery = self.clients[id].scaler
             pred = scalery.inverse_transform(pred)
             y_test = scalery.inverse_transform(y_test)
+
             mape = mean_absolute_percentage_error(y_test, pred) * 100
             mae = mean_absolute_error(y_test, pred)
             mse = mean_squared_error(y_test, pred)
@@ -131,6 +134,35 @@ class Server():
         aver_mape = total_mape/len(self.clients)
         aver_mae = total_mae/len(self.clients)
         return aver_mse, aver_mape, aver_mae 
+    
+    # FedProx
+    def fed_prox_model_test(self):
+        aver_mape = float()
+        aver_mse = float()
+        aver_mae = float()
+        total_mape = float()
+        total_mse = float()
+        total_mae = float()
+        for id in range(0,len(self.clients)):
+            self.clients[id].fed_prox_model.eval()
+            client_test_dataloader = self.clients[id].test_dataloader
+            x_test, y_test = next(iter(client_test_dataloader))
+            pred = self.clients[id].fed_prox_model(x_test).cpu().detach().numpy()
+            y_test = y_test.cpu().detach().numpy()
+            scalery = self.clients[id].scaler
+            pred = scalery.inverse_transform(pred)
+            y_test = scalery.inverse_transform(y_test)
+            
+            mape = mean_absolute_percentage_error(pred, y_test) * 100
+            mae = mean_absolute_error(pred, y_test)
+            mse = mean_squared_error(pred, y_test)
+            total_mape = total_mape + mape
+            total_mae = total_mae + mae
+            total_mse = total_mse + mse
+        aver_mse = total_mse/len(self.clients)
+        aver_mape = total_mape/len(self.clients)
+        aver_mae = total_mae/len(self.clients)
+        return aver_mse, aver_mape, aver_mae
     
     # Split
     def split_model_test(self):
@@ -272,12 +304,35 @@ class Server():
     def fed_model_average(self):
         models = []
 
+        # upload model parameters
         for client in self.clients:
             model = client.get_fed_model()
             models.append(model)
         
+        # average model parameters
         avg_model_params = models[0].state_dict()
 
+        # distribute model parameters
+        for param_name in avg_model_params:
+            for i in range(1, len(models)):
+                avg_model_params[param_name] += models[i].state_dict()[param_name]
+            avg_model_params[param_name] /= len(models)
+        
+        return avg_model_params
+    
+    # FedProx
+    def fed_prox_model_average(self):
+        models = []
+
+        # upload model parameters
+        for client in self.clients:
+            model = client.get_fed_prox_model()
+            models.append(model)
+        
+        # average model parameters
+        avg_model_params = models[0].state_dict()
+
+        # distribute model parameters
         for param_name in avg_model_params:
             for i in range(1, len(models)):
                 avg_model_params[param_name] += models[i].state_dict()[param_name]
@@ -420,7 +475,7 @@ class Server():
     # Centralized
     def centralized_train(self):
         print('Centralized Training!')
-        self.centralized_model = full_model_cen(input_size=self.input_dim).to(device)
+        self.centralized_model = full_model(input_size=self.input_dim).to(device)
         for e in range(self.rounds):
             self.optimizer = torch.optim.Adam(self.centralized_model.parameters(), lr=self.lr)
             self.trainer = full_Trainer(model=self.centralized_model,
@@ -460,7 +515,7 @@ class Server():
             for client in self.clients:
                 client.set_fed_model(fed_global_model_params)
         
-        for i in range(30):
+        for i in range(self.finetuning_rounds):
             for client in self.clients:
                 client.fed_finetune()
 
@@ -468,6 +523,32 @@ class Server():
         rmse = math.sqrt(mse)
         print(f"rmse: {rmse}, mape: {mape}, mae: {mae}")
     
+    # FedProx
+    def fed_prox_train(self):
+        print('FedProx Training!')
+        self.fed_prox_global_model = full_model(input_size=self.input_dim).to(device)
+        fed_global_model_params = self.fed_prox_global_model.state_dict()
+        # local train
+        for e in range(self.rounds):
+            for client in self.clients:
+                client.fed_prox_train(fed_global_model_params)
+
+            # Model average   
+            fed_global_model_params = self.fed_prox_model_average()
+            self.fed_prox_global_model.load_state_dict(fed_global_model_params)
+
+            # Model distribute
+            for client in self.clients:
+                client.set_fed_prox_model(fed_global_model_params)
+            
+        for i in range(self.finetuning_rounds):
+            for client in self.clients:
+                client.fed_prox_finetune()
+
+            mse, mape, mae = self.fed_prox_model_test()
+            rmse = math.sqrt(mse)
+            print(f"rmse: {rmse}, mape: {mape}, mae: {mae}")
+
     # Split
     def split_train(self):
         print('Split Training!')
@@ -508,7 +589,7 @@ class Server():
                 server.set_sflv1_feature_processor(global_feature_processor_params)
         
         # Model Finetune
-        for i in range(30):
+        for i in range(self.finetuning_rounds):
             for client in self.clients:
                 client.sflv1_finetune()
 
@@ -552,7 +633,7 @@ class Server():
                 client.set_sflv2_regressor(sfl_global_regressor_params)
 
         # Model finetune
-        for i in range(30):
+        for i in range(self.finetuning_rounds):
             for client in self.clients:
                 client.sflv2_finetune()
                 
@@ -591,7 +672,7 @@ class Server():
                 client.set_distillation_feature_processor(distillation_global_feature_processor_params)
         
         # Model finetune
-        for i in range(30):
+        for i in range(self.finetuning_rounds):
             for client in self.clients:
                 client.distillation_fine_tune()
 
