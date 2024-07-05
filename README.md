@@ -27,6 +27,7 @@ To use the provided code, you are supposed to:
 - Compile `experimental_platform/smart_meter/USER/.uvprojx` and download the code to the flash memory of microcontrollers.
 - Run `experimental_platform/edge_server/Edge_server` on computers.
 - Run `experimental_platform/cloud_server/Cloud_server` on server.
+> **Note:** Please ensure the microcontroller is configured with at least 192KB of SRAM and at least 1GB of FLASH.
 > **Note:** Please ensure the communication network is connected and stable before use.
  
 ## Simulation platform
