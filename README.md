@@ -56,6 +56,10 @@ Enable resource-constrained smart meters to execute resource-intensive intellige
 
 ![teaser](figures/accuracy_versus_memory.png)
 
+ - Impacts on energy management 
+
+![teaser](figures/home_energy_management.png)
+
 ## Video
  - Smart meters are performing 4-hour-ahead load forecasting. The red line is the truth value and the blue line is the prediction value.
 
