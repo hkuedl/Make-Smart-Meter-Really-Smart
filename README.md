@@ -69,5 +69,5 @@ Experimental platform:
 Simulation platform:
 - Python 3.6+
 - PyTorch 1.4.0+
-- Inter i7 12700 4.9GHz CPU
+- NVIDIA GeForce RTX 3080 Ti 12GB GPU
  
