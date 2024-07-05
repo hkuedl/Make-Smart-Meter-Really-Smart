@@ -8,7 +8,7 @@ This is the codebase for our paper "Introducing Edge Intelligence to Smart Meter
 Low-cost smart meters are ubiquitous in smart grids. Enabling resource-constraint smart meters to perform deep learning is quite challenging. Our end-edge-cloud framework reveals a new path for edge intelligence on smart meters. It improves 95.6% memory footprint, 94.8% training time, and 50% communication overhead, achieving comparable or even superior forecasting accuracy to the
 resource-unlimited methods. We provide code for established experimental and simulation platforms.
 
-![teaser](figures/framework.jpg)
+![content](figures/framework.jpg)
 
 ## Dataset
 
@@ -21,7 +21,7 @@ The current version supports the following datasets and tasks are saved in `data
 You can build the **experimental platform** with three components: microcontrollers, personal computers and tower server. `experimental_platform` is loaded with the code deployed on them.
 > **Note:** The microcontrollers are coded in  **C language** and the computers and tower server are coded in **Python**.
 > 
-![teaser](experimental_platform/hardware_platform.png)
+![content](figures/hardware_platform.png)
 
 To use the provided code, you are supposed to:
 - Compile `experimental_platform/smart_meter/USER/.uvprojx` and download the code to the flash memory of microcontrollers.
@@ -42,7 +42,7 @@ Enable resource-constrained smart meters to execute resource-intensive intellige
 
  - Performance comparison
 
-![teaser](figures/performance_evaluation.png)
+![content](figures/performance_evaluation.png)
 
  - Accuracy versus memory footprint
 
@@ -50,12 +50,12 @@ Enable resource-constrained smart meters to execute resource-intensive intellige
 
  - Impacts on energy management 
 
-![teaser](figures/energy_management.png)
+![content](figures/energy_management.png)
 
 ## Video
  - Smart meters are performing 4-hour-ahead load forecasting. The red line is the truth value and the blue line is the prediction value.
 
-![teaser](figures/testing_video.gif)
+![content](figures/testing_video.gif)
 
 ## Requirement
 
