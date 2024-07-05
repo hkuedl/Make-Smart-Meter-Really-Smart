@@ -8,7 +8,7 @@ This is the codebase for our paper "Introducing Edge Intelligence to Smart Meter
 Low-cost smart meters are ubiquitous in smart grids. Enabling resource-constraint smart meters to perform deep learning is quite challenging. Our end-edge-cloud framework reveals a new path for edge intelligence on smart meters. It improves 95.6% memory footprint, 94.8% training time, and 50% communication overhead, achieving comparable or even superior forecasting accuracy to the
 resource-unlimited methods. We provide code for established experimental and simulation platforms.
 
-![teaser](figures/framework.png)
+![teaser](figures/framework.jpg)
 
 ## Dataset
 
