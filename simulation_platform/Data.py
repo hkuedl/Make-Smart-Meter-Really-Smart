@@ -24,7 +24,6 @@ class NormalDataset(data.Dataset):
     def __init__(self, data):
         self.x = torch.from_numpy(data).float()[:, :-4].to(device)
         self.y = torch.from_numpy(data).float()[:, -4:].to(device)
-        # self.y = torch.from_numpy(data).float()[:, -1].reshape(-1,1).to(device)
 
     def __len__(self):
         return len(self.x)
@@ -134,7 +133,9 @@ def construct_dataset(df, dfs, batchsize=32):
     train_dfs = []
     test_dfs = []
     
-    # divide the dataset
+    # divide the dataset (1 year for training, 0.5 year for testing)
+    # BDG2 contains 2-year data
+    # CBTs contains 1.5-year data
     for i in range(len(dfs)):
         dfs_i = dfs[i]
         n = len(dfs_i)
