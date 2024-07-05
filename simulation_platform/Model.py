@@ -21,7 +21,6 @@ class feature_processor(nn.Module):
     def __init__(self):
         super(feature_processor, self).__init__()
       
-
         # self.fc_relu1 = torch.nn.Sequential(
         #     nn.Linear(input_size, 16),
         #     torch.nn.ReLU())

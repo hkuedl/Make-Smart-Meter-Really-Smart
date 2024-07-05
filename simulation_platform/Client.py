@@ -23,7 +23,7 @@ class Client():
         #================================================
         #                Build models
         #================================================
-        # 
+        # model, optimizer, trainer
         # Local
         self.local_model =  full_model(input_size=self.input_dim).to(device)
         self.local_optimizer = torch.optim.Adam(self.local_model.parameters(), lr=lr)
