@@ -61,8 +61,9 @@ Enable resource-constrained smart meters to execute resource-intensive intellige
 ## Requirement
 
 Experimental platform:
-- μVision 5.3+
-- STM32F405 MCU
+- Smart Meter: μVision 5.3+ and STM32F405 MCU
+- Edge Server: Python 3.6+ and Inter-i7-12700-4.9GHz CPU
+- Cloud Server: Python 3.6+ and NVIDIA GeForce RTX 3080 Ti 12GB GPU
 
 Simulation platform:
 - Python 3.6+
