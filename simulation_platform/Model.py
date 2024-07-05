@@ -80,7 +80,6 @@ class full_model(nn.Module):
             torch.nn.ReLU())
         self.linear = nn.Linear(16, 4)
         
-
     def forward(self, x):
         x = self.fc_relu1(x)
         x = self.fc_relu2(x)
@@ -89,22 +88,6 @@ class full_model(nn.Module):
         x = self.fc_relu5(x)
         output = self.linear(x)
         
-        return output
-
-class full_model_cen(nn.Module):
-    def __init__(self, input_size):
-        super(full_model_cen, self).__init__()
-      
-
-        self.fc_relu1 = torch.nn.Sequential(
-            nn.Linear(input_size, 16),
-            torch.nn.ReLU())
-        self.linear = nn.Linear(16, 4)
-        
-
-    def forward(self, x):
-        x = self.fc_relu1(x)
-        output = self.linear(x)
         return output
 
 # Model training for split learning-based method
@@ -279,7 +262,30 @@ class full_Trainer:
             self.optimizer.zero_grad()
             loss.backward()
             self.optimizer.step()
-    
+
+    # FedProx        
+    def prox_trainer(
+            self,
+            train_dataloader: data.DataLoader,
+            global_parameter):
+        
+        self.model.train()
+        for X, Y in train_dataloader:
+            
+            loss_prox = 0
+            # Forward pass
+            pred = self.model(X)
+            loss_error = self.train_loss_fn(pred, Y) 
+            # global_parameter is a dictionary of global parameters
+            for key in global_parameter:
+                loss_prox += torch.sum(torch.pow(self.model.state_dict()[key] - global_parameter[key], 2))
+            
+            loss = loss_error + 0.1 * loss_prox 
+            # Backward pass
+            self.optimizer.zero_grad()
+            loss.backward()
+            self.optimizer.step()
+
     def fine_tune(
             self,
             train_dataloader: data.DataLoader):
