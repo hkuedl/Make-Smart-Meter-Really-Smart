@@ -24,6 +24,7 @@ You can build the **experimental platform** with three components: microcontroll
 ![content](figures/hardware_platform.png)
 
 To use the provided code, you are supposed to:
+- Load the dataset `dataset/BDG2_dataset/.csv` into microcontrollers.
 - Compile `experimental_platform/smart_meter/USER/.uvprojx` and download the code to the flash memory of microcontrollers.
 - Run `experimental_platform/edge_server/Edge_server` on computers.
 - Run `experimental_platform/cloud_server/Cloud_server` on server.
