@@ -27,7 +27,8 @@ To use the provided code, you are supposed to:
 - Compile `experimental_platform/smart_meter/USER/.uvprojx` and download the code to the flash memory of microcontrollers.
 - Run `experimental_platform/edge_server/Edge_server` on computers.
 - Run `experimental_platform/cloud_server/Cloud_server` on server.
-> **Note:** Please ensure the microcontroller is configured with at least 192KB of SRAM and at least 1GB of FLASH.
+> **Note:** Please ensure the microcontroller is configured with at least 192 KB of SRAM and 1 GB of FLASH.
+> 
 > **Note:** Please ensure the communication network is connected and stable before use.
  
 ## Simulation platform
@@ -55,7 +56,7 @@ Enable resource-constrained smart meters to execute resource-intensive intellige
 ## Video
  - Smart meters are performing 4-hour-ahead load forecasting. The red line is the truth value and the blue line is the prediction value.
 
-![content](figures/testing_video.gif)
+![image](https://github.com/SimonLi2000/Make-Smart-Meter-Really-Smart/blob/15d69ceca0e8524abeb2cd4b19ffb4cb95d68be1/figures/testing_video.gif)
 
 ## Requirement
 
