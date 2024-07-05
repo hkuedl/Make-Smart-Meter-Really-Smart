@@ -46,7 +46,7 @@ Enable resource-constrained smart meters to execute resource-intensive intellige
 
  - Accuracy versus memory footprint
 
-![teaser](figures/accuracy_versus_memory.png)
+![content](figures/accuracy_versus_memory.png)
 
  - Impacts on energy management 
 
