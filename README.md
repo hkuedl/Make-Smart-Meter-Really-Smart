@@ -36,17 +36,6 @@ You can also build the **simulation platform** with the tower server. `simulatio
 
 To use the provided code, please run `simulation_platform/Test.py` to obtain results.
 
-## Requirement
-
-Experimental platform:
-- μVision 5.3+
-- STM32F405 MCU
-
-Simulation platform:
-- Python 3.6+
-- PyTorch 1.4.0+
-- Inter-i7-12700-4.9GHz CPU
-
 ## Experimental results
 
 Enable resource-constrained smart meters to execute resource-intensive intelligent algorithms!
@@ -67,4 +56,15 @@ Enable resource-constrained smart meters to execute resource-intensive intellige
  - Smart meters are performing 4-hour-ahead load forecasting. The red line is the truth value and the blue line is the prediction value.
 
 ![teaser](figures/testing_video.gif)
+
+## Requirement
+
+Experimental platform:
+- μVision 5.3+
+- STM32F405 MCU
+
+Simulation platform:
+- Python 3.6+
+- PyTorch 1.4.0+
+- Inter-i7-12700-4.9GHz CPU
  
