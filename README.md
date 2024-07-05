@@ -36,7 +36,23 @@ To use the provided code, you are supposed to:
 
 You can also build the **simulation platform** with the tower server. `simulation_platform` is loaded with the code deployed on it.
 
-To use the provided code, please run `simulation_platform/Test.py` to obtain results.
+To use the provided code, please run `simulation_platform/Test.py` to obtain the results:
+
+`server.centralized_train()`: Cen
+
+`server.local_train()`: Local
+
+`server.fed_train()`: FedAvg
+
+`server.fed_prox_train()`: FedProx
+
+`server.split_train()`: Split
+
+`server.sflv1_train()`: SFLV1
+
+`server.sflv2_train()`: SFLV2
+
+`server.distillation_train()`: Proposed
 
 ## Experimental results
 
