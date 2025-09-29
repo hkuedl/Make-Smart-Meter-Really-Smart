@@ -17,7 +17,7 @@ The current version supports the following datasets and tasks are saved in `data
 
 ## Experimental platform
 
-You can build the **experimental platform** with three components: microcontrollers, personal computers and tower server. `experimental_platform` is loaded with the code deployed on them.
+You can build the **experimental platform** with three components: microcontrollers, personal computers, and a tower server. `experimental_platform` is loaded with the code deployed on them.
 > **Note:** The microcontrollers are coded in  **C language** and the computers and tower server are coded in **Python**.
 > 
 ![content](figures/hardware_platform.png)
@@ -27,7 +27,7 @@ To use the provided code, you are supposed to:
 - Compile `experimental_platform/smart_meter/USER/.uvprojx` and download the code to the flash memory of microcontrollers.
 - Run `experimental_platform/edge_server/Edge_server` on computers.
 - Run `experimental_platform/cloud_server/Cloud_server` on server.
-> **Note:** Please ensure the microcontroller is configured with at least 192 KB of SRAM and 1 GB of FLASH.
+> **Note:** Please ensure the microcontroller is configured with at least 192 KB of SRAM and 1 MB of FLASH.
 > 
 > **Note:** Please ensure the communication network is connected and stable before use.
  
